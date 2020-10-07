@@ -4,17 +4,17 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "dependsOn":[           //任务依赖，在执行该任务前，需要先执行依赖任务
+            "dependsOn":[           // 任务依赖，在执行该任务前，需要先执行依赖任务
                 "Create Bin folder"
             ],
-            "label": "First task",  //任务名称
-            "type": "shell",        //任务类型
-            "group": "none",        //组, 只有3个选项"build", "test", "none", 感觉功能就是用来简化选择用的
-                                    // build组: 通过Tasks: Run Build Task选择, 也可以通过Tasks: Run Task选择
-                                    // test组:  通过Tasks: Run Test Task选择, 也可以通过Tasks: Run Task选择
-                                    // none组:  通过Tasks: Run Task选择，就是显示全部任务
-            "command": "echo",      //命令
-            "args": [               //命令参数
+            "label": "First task",  // 任务名称
+            "type": "shell",        // 任务类型
+            "group": "none",        // 组, 只有3个选项"build", "test", "none", 感觉功能就是用来简化选择用的
+                                    //  build组: 通过Tasks: Run Build Task选择, 也可以通过Tasks: Run Task选择
+                                    //  test组:  通过Tasks: Run Test Task选择, 也可以通过Tasks: Run Task选择
+                                    //  none组:  通过Tasks: Run Task选择，就是显示全部任务
+            "command": "echo",      // 命令
+            "args": [               // 命令参数
                 "Hello, World!"
             ]
         },
@@ -28,7 +28,7 @@
             "label": "Create Bin folder",
             "type": "shell",
             "group": "none",
-            "windows":{             //Window命令
+            "windows":{             // Window命令
                 "command": "mkdir",
                 "args": [
                     "-p",
@@ -38,7 +38,7 @@
                     "Create BIN folder."
                 ],
             },
-			"osx": {                //Mac命令
+			"osx": {                // Mac命令
                 "command": "mkdir",
                 "args": [
                     "-p",
@@ -49,7 +49,7 @@
                 ]
             },
             "options": {
-                "cwd": "${workspaceFolder}/../"     //指定当前的工作文件夹
+                "cwd": "${workspaceFolder}/../"     // 指定当前的工作文件夹
             },
         },
 
@@ -63,7 +63,7 @@
             "type": "shell",
             "group": "none",
 			"windows": {
-                "command": "Remove-Item",// PowerShell command
+                "command": "Remove-Item",
                 "args": [
                     "build",
                     "-Recurse",
@@ -80,14 +80,14 @@
             "options": {
                 "cwd": "${workspaceFolder}/../"
             },
-		},
+        },
 		// ## Clean bin files
 		{
             "label": "Clean Bin folder",
             "type": "shell",
             "group": "none",
 			"windows": {
-                "command": "Remove-Item",// PowerShell command
+                "command": "Remove-Item",
                 "args": [
                     "bin*",
                     "-Recurse",
@@ -109,11 +109,11 @@
 
     "inputs": [
         {
-            "id": "buildProject",
-            "description": "Select project to build:",
-            "default": "SFML",
-            "type": "pickString",
-            "options": ["SFML"]
+            "id": "buildProject",                       // 标识
+            "description": "Select project to build:",  // UI上的描述
+            "default": "SFML",                          // 默认值
+            "type": "pickString",                       // 类型，只有3个选项"promptString", "pickString", "command"
+            "options": ["SFML", "Test"]                 // 选项
         }
     ]
 }
