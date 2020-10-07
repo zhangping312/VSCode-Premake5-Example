@@ -105,6 +105,63 @@
                 "cwd": "${workspaceFolder}/../"
             },
         },
+
+        /////////////////////////////////////////////
+		// # Project files build
+        /////////////////////////////////////////////
+
+        // ## Windows
+        {
+            "dependsOn":[
+                "Clean Bin folder",
+                "Create Bin folder"
+            ],
+
+            "label": "Build (Windows)",
+            "type": "shell",
+            "group": "build",
+            "command": "cl.exe",
+            "args": [
+                "/Zi",
+                "/EHsc",
+                // 不要写成"/Fo",  "${workspaceFolder}\\..\\bin\\${input:buildProject}\\"
+                // 导致运行时会在/Fo后加上空格，导致设置失败，如果真要写，可以在/Fo后加上:参考下面注释的设置
+                "/Fo${workspaceFolder}\\..\\bin\\${input:buildProject}\\",  // 设置obj文件所在目录，
+                // 正确设置
+                //"/Fo:",
+                //"${workspaceFolder}\\..\\bin\\${input:buildProject}\\",
+                "/Fd${workspaceFolder}\\..\\bin\\${input:buildProject}\\",  // 设置pdb文件所在目录
+                "/FC",
+                "${workspaceFolder}\\${input:buildProject}\\Source\\*.cpp", // 设置代码所在目录
+                "/Fe:",
+                "${workspaceFolder}\\..\\bin\\${input:buildProject}\\${input:buildProject}.exe" // 设置exe所在目录
+            ],
+            "problemMatcher": ["$msCompile"]//捕捉编译时编译器在终端里显示的报错信息
+        },
+        // ## Mac
+        {
+            "dependsOn":[           // 任务依赖，在执行该任务前，需要先执行依赖任务
+                "Clean Bin folder",
+                "Create Bin folder"
+            ],
+
+            "label": "Build (Mac)",
+            "type": "shell",
+            "group": "build",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-std=c++17",
+                "-stdlib=libc++",
+                "-g",
+                "${workspaceFolder}/${input:buildProject}/Source/*.cpp",    // 设置代码所在目录
+                "-o",
+                "${workspaceFolder}/../bin/${input:buildProject}"           // 设置可执行文件所在目录
+            ],
+            "options": {
+              "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"]
+        }
     ],
 
     "inputs": [
