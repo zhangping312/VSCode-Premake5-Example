@@ -30,3 +30,18 @@
 *.exe
 *.out
 *.app
+
+# Customize
+build/
+bin/
+.vs/
+Debug/
+x64/
+bin/
+bin-int/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.hint
+.DS_Store

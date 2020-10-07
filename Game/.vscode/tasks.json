@@ -1,0 +1,119 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "dependsOn":[           //任务依赖，在执行该任务前，需要先执行依赖任务
+                "Create Bin folder"
+            ],
+            "label": "First task",  //任务名称
+            "type": "shell",        //任务类型
+            "group": "none",        //组, 只有3个选项"build", "test", "none", 感觉功能就是用来简化选择用的
+                                    // build组: 通过Tasks: Run Build Task选择, 也可以通过Tasks: Run Task选择
+                                    // test组:  通过Tasks: Run Test Task选择, 也可以通过Tasks: Run Task选择
+                                    // none组:  通过Tasks: Run Task选择，就是显示全部任务
+            "command": "echo",      //命令
+            "args": [               //命令参数
+                "Hello, World!"
+            ]
+        },
+
+        /////////////////////////////////////////////
+		// # Creating
+        /////////////////////////////////////////////
+
+        // ## Mac need to create bin folder
+        {
+            "label": "Create Bin folder",
+            "type": "shell",
+            "group": "none",
+            "windows":{             //Window命令
+                "command": "mkdir",
+                "args": [
+                    "-p",
+                    "bin/${input:buildProject}",
+                    ";", // PowerShell command， 不能用"&&"
+                    "echo",
+                    "Create BIN folder."
+                ],
+            },
+			"osx": {                //Mac命令
+                "command": "mkdir",
+                "args": [
+                    "-p",
+                    "bin/${input:buildProject}",
+                    "&&", 
+                    "echo",
+                    "Create BIN folder."
+                ]
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/../"     //指定当前的工作文件夹
+            },
+        },
+
+        /////////////////////////////////////////////
+		// # Cleaning
+        /////////////////////////////////////////////
+
+        // ## Clean build files
+		{
+            "label": "Clean Build folder",
+            "type": "shell",
+            "group": "none",
+			"windows": {
+                "command": "Remove-Item",// PowerShell command
+                "args": [
+                    "build",
+                    "-Recurse",
+                    "-Force",
+                    "-Confirm:$false",
+                    ";", 
+                    "echo",
+                    "Cleaning Build folder."
+                ]
+			},
+			"osx": {
+				"command": "rm -r build && echo Cleaning Build folder."
+			},
+            "options": {
+                "cwd": "${workspaceFolder}/../"
+            },
+		},
+		// ## Clean bin files
+		{
+            "label": "Clean Bin folder",
+            "type": "shell",
+            "group": "none",
+			"windows": {
+                "command": "Remove-Item",// PowerShell command
+                "args": [
+                    "bin*",
+                    "-Recurse",
+                    "-Force",
+                    "-Confirm:$false",
+                    ";", 
+                    "echo",
+                    "Cleaning BIN folder."
+                ]
+			},
+			"osx": {
+				"command": "rm -r bin* && echo Cleaning BIN folder."
+			},
+            "options": {
+                "cwd": "${workspaceFolder}/../"
+            },
+        },
+    ],
+
+    "inputs": [
+        {
+            "id": "buildProject",
+            "description": "Select project to build:",
+            "default": "SFML",
+            "type": "pickString",
+            "options": ["SFML"]
+        }
+    ]
+}
