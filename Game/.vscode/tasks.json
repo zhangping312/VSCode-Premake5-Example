@@ -133,52 +133,53 @@
         // ## Windows
         {
             "dependsOn":[
-                "Clean Bin folder",
-                "Create Bin folder"
+                "Generate build files (VS2019)"
             ],
 
             "label": "Build (VS2019)",
             "type": "shell",
             "group": "build",
-            "command": "cl.exe",
+            "command": "msbuild", //需要通过Visual Studio命令行打开, 比如(x64_x86 Cross Tools Command Prompt for VS 2019)
             "args": [
-                "/Zi",
-                "/EHsc",
-                // 不要写成"/Fo",  "${workspaceFolder}\\..\\bin\\${input:buildProject}\\"
-                // 导致运行时会在/Fo后加上空格，导致设置失败，如果真要写，可以在/Fo后加上:参考下面注释的设置
-                "/Fo${workspaceFolder}\\..\\bin\\${input:buildProject}\\",  // 设置obj文件所在目录，
-                // 正确设置
-                //"/Fo:",
-                //"${workspaceFolder}\\..\\bin\\${input:buildProject}\\",
-                "/Fd${workspaceFolder}\\..\\bin\\${input:buildProject}\\",  // 设置pdb文件所在目录
-                "/FC",
-                "${workspaceFolder}\\${input:buildProject}\\Source\\*.cpp", // 设置代码所在目录
-                "/Fe:",
-                "${workspaceFolder}\\..\\bin\\${input:buildProject}\\${input:buildProject}.exe" // 设置exe所在目录
+                "${workspaceFolderBasename}.sln",
+				"/m",
+				"/property:Configuration=${input:buildConfigVS2019}",   // Configuration: Debug or Release
+				"/property:Platform=${input:buildPlatformVS2019}",      // Platform: x86 or x64
+				// Ask msbuild to generate full paths for file names.
+				"/property:GenerateFullPaths=true",
+                "/t:build"
             ],
-            "problemMatcher": ["$msCompile"]//捕捉编译时编译器在终端里显示的报错信息
+            "options": {
+                "cwd": "${workspaceFolder}/../build"
+            },
+            "problemMatcher": ["$msCompile"],//捕捉编译时编译器在终端里显示的报错信息
+            "presentation": {
+				"reveal": "silent" // Reveal the output only if unrecognized errors occur.
+			}
         },
         // ## Mac
         {
             "dependsOn":[           // 任务依赖，在执行该任务前，需要先执行依赖任务
-                "Clean Bin folder",
-                "Create Bin folder"
+                "Create Bin folder",
+                "Generate build files (XCode)"
             ],
 
             "label": "Build (XCode)",
             "type": "shell",
             "group": "build",
-            "command": "/usr/bin/clang++",
+            "command": "xcodebuild",
             "args": [
-                "-std=c++17",
-                "-stdlib=libc++",
-                "-g",
-                "${workspaceFolder}/${input:buildProject}/Source/*.cpp",    // 设置代码所在目录
-                "-o",
-                "${workspaceFolder}/../bin/${input:buildProject}/${input:buildProject}"           // 设置可执行文件所在目录
+                "-workspace",
+                "${workspaceFolderBasename}.xcworkspace",
+                "-scheme", 
+                "${input:buildProject}",
+                "-configuration",
+                "${input:buildConfigXCode}",
+                "-arch",
+                "x86_64"
             ],
             "options": {
-              "cwd": "${workspaceFolder}"
+              "cwd": "${workspaceFolder}/../build"
             },
             "problemMatcher": ["$gcc"]
         }
@@ -191,6 +192,27 @@
             "default": "SFML",                          // 默认值
             "type": "pickString",                       // 类型，只有3个选项"promptString", "pickString", "command"
             "options": ["SFML", "Test"]                 // 选项
-        }
+        },
+        {
+            "id": "buildConfigVS2019",
+            "description": "Select build config for VS2019:",
+            "default": "Debug",
+            "type": "pickString",
+            "options": ["Debug", "Release"]
+		},
+		{
+            "id": "buildPlatformVS2019",
+            "description": "Select build platform for VS2019:",
+            "default": "Win32",
+            "type": "pickString",
+            "options": ["Win32", "x64"]
+        },
+        {
+            "id": "buildConfigXCode",
+            "description": "Select build config for XCode:",
+            "default": "Debug",
+            "type": "pickString",
+            "options": ["Debug", "Release"]
+		}
     ]
 }
