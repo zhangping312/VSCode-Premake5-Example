@@ -6,9 +6,9 @@
     "configurations": [
         // ## Windows
         {
-            "name": "Launch (Windows)",         // 配置名称，VSCode下面
+            "name": "Launch (VS2019)",         // 配置名称，VSCode下面
             "program": "${workspaceFolder}\\..\\bin\\${input:buildProject}\\${input:buildProject}.exe",// 需要调试的程序路径
-            "preLaunchTask": "Build (Windows)", // 调试开始前执行的任务，我们在调试前要编译构建。与tasks.json的label相对应，名字要一样
+            "preLaunchTask": "Build (VS2019)", // 调试开始前执行的任务，我们在调试前要编译构建。与tasks.json的label相对应，名字要一样
             "type": "cppvsdbg",                 // 配置类型
             "request": "launch",                // 请求配置类型，可以为launch（启动）或attach（附加）
             "args": [],                         // 程序调试时传递给程序的命令行参数，这里设为空即可
@@ -20,9 +20,9 @@
 
         // ## Mac
         {
-            "name": "Launch (Mac)",
+            "name": "Launch (XCode)",
             "program": "${workspaceFolder}/../bin/${input:buildProject}/${input:buildProject}",
-            "preLaunchTask": "Build (Mac)",
+            "preLaunchTask": "Build (XCode)",
             "type": "cppdbg",
             "request": "launch",
             "args": [],

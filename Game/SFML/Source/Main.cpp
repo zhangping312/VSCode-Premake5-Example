@@ -1,11 +1,20 @@
-#include <iostream>
+#include "Engine/Application.h"
+
+#define APP_NAME "SFML"
+#define APP_WIDTH 1280
+#define APP_HEIGHT 720
 
 int main(int args, char* argv[])
 {
-    std::cout << "Hello, World!" << std::endl;
-    int i = 0;
-    i += 5;
-    std::cout << "i: " << i << std::endl;
+    try
+    {
+        Application app(APP_NAME, APP_WIDTH, APP_HEIGHT);
+        app.Run();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     return 0;
 }

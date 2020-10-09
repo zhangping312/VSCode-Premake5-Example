@@ -107,6 +107,26 @@
         },
 
         /////////////////////////////////////////////
+		// # Project files generation(premake5)
+        /////////////////////////////////////////////
+
+        // ## VS2019
+        {
+            "label": "Generate build files (VS2019)",
+            "type": "shell",
+            "group": "none",
+            "command": "premake5 vs2019"
+        },     
+        
+        // ## XCode
+        {
+           "label": "Generate build files (XCode)",
+           "type": "shell",
+           "group": "none",
+           "command": "premake5 xcode4"
+        },
+
+        /////////////////////////////////////////////
 		// # Project files build
         /////////////////////////////////////////////
 
@@ -117,7 +137,7 @@
                 "Create Bin folder"
             ],
 
-            "label": "Build (Windows)",
+            "label": "Build (VS2019)",
             "type": "shell",
             "group": "build",
             "command": "cl.exe",
@@ -145,7 +165,7 @@
                 "Create Bin folder"
             ],
 
-            "label": "Build (Mac)",
+            "label": "Build (XCode)",
             "type": "shell",
             "group": "build",
             "command": "/usr/bin/clang++",
