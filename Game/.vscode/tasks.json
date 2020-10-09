@@ -75,7 +75,7 @@
                 ]
 			},
 			"osx": {
-				"command": "rm -r build && echo Cleaning Build folder."
+				"command": "rm -f -r build && echo Cleaning Build folder."
 			},
             "options": {
                 "cwd": "${workspaceFolder}/../"
@@ -99,7 +99,7 @@
                 ]
 			},
 			"osx": {
-				"command": "rm -r bin* && echo Cleaning BIN folder."
+				"command": "rm -f -r bin* && echo Cleaning BIN folder."
 			},
             "options": {
                 "cwd": "${workspaceFolder}/../"
@@ -155,7 +155,7 @@
                 "-g",
                 "${workspaceFolder}/${input:buildProject}/Source/*.cpp",    // 设置代码所在目录
                 "-o",
-                "${workspaceFolder}/../bin/${input:buildProject}"           // 设置可执行文件所在目录
+                "${workspaceFolder}/../bin/${input:buildProject}/${input:buildProject}"           // 设置可执行文件所在目录
             ],
             "options": {
               "cwd": "${workspaceFolder}"
