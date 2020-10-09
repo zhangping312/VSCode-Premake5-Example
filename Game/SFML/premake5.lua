@@ -23,5 +23,5 @@ project "SFML"
 
     -- Mac configuration
     filter "system:macosx"
-    systemversion "10.14"
-        includedirs     { g_WorkspaceFolder .. "/%{prj.name}/Source/" }--Xcode: User Header Search Paths
+    systemversion "10.14"   -- 我的Mac版本是10.14.5，低于development target的10.15， 为了避免手动修改，改成10.14
+        includedirs     { g_WorkspaceFolder .. "/%{prj.name}/Source/" }-- Xcode: User Header Search Paths
