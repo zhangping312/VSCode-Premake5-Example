@@ -1,5 +1,6 @@
 #include <iostream>
 #include <exception>
+#include <SFML/Graphics.hpp>
 
 class Application
 {
@@ -10,4 +11,7 @@ public:
     virtual ~Application();
 
     void Run();
+
+private:
+    sf::RenderWindow* m_WindowHandle = nullptr;
 };

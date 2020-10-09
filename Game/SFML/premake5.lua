@@ -1,3 +1,6 @@
+IncludeDirs = {}
+IncludeDirs["SFML"] = g_WorkspaceFolder .. "/../Third/SFML-2.5.1/include"
+
 project "SFML"
     kind "ConsoleApp"
 	language "C++"
@@ -19,7 +22,23 @@ project "SFML"
 
     -- Window configuration
     filter "system:windows"
-        includedirs { g_WorkspaceFolder .. "/%{prj.name}/Source/" }-- Specify the include file search path
+        includedirs -- Specify the include file search path
+        { 
+            g_WorkspaceFolder .. "/%{prj.name}/Source/",
+            "%{IncludeDirs.SFML}"
+        }
+        libdirs { g_WorkspaceFolder .. "/../Third/SFML-2.5.1/lib/%{cfg.system}/%{cfg.architecture}" }
+    
+        prebuildcommands
+        {
+            ("{COPY} \"%{wks.location}../Third/SFML-2.5.1/bin/%{cfg.system}/%{cfg.architecture}/*.dll\" \"%{cfg.buildtarget.directory}\""),
+        }
+
+    filter { "system:windows", "configurations:Debug" }
+        links   { "sfml-system-d.lib", "sfml-window-d.lib", "sfml-graphics-d.lib" }
+
+    filter { "system:windows", "configurations:Release" }
+        links   { "sfml-system.lib","sfml-window.lib", "sfml-graphics.lib" }
 
     -- Mac configuration
     filter "system:macosx"

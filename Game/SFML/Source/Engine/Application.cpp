@@ -2,15 +2,32 @@
 
 Application::Application(const std::string& title, unsigned int width, unsigned int height)
 {
-    std::cout << "Application constructor!" << std::endl;
+    m_WindowHandle = new sf::RenderWindow(sf::VideoMode(width, height), title.c_str());
+    if (!m_WindowHandle) throw std::runtime_error("Failed to create SFML window!");
 }
 
 Application::~Application()
 {
-    std::cout << "Application destructor!" << std::endl;
+    if (m_WindowHandle) delete m_WindowHandle;
+    m_WindowHandle = nullptr;
 }
 
 void Application::Run()
 {
-    std::cout << "Application run!" << std::endl;
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+    while (m_WindowHandle->isOpen())
+    {
+        sf::Event event;
+        while (m_WindowHandle->pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                m_WindowHandle->close();
+        }
+
+        m_WindowHandle->clear();
+        m_WindowHandle->draw(shape);
+        m_WindowHandle->display();
+    }
 }
