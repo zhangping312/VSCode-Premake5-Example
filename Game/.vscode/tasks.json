@@ -130,7 +130,7 @@
 		// # Project files build
         /////////////////////////////////////////////
 
-        // ## Windows
+        // ## VS2019
         {
             "dependsOn":[
                 "Generate build files (VS2019)"
@@ -157,7 +157,7 @@
 				"reveal": "silent" // Reveal the output only if unrecognized errors occur.
 			}
         },
-        // ## Mac
+        // ## XCode
         {
             "dependsOn":[           // 任务依赖，在执行该任务前，需要先执行依赖任务
                 "Create Bin folder",
@@ -191,7 +191,7 @@
             "description": "Select project to build:",  // UI上的描述
             "default": "SFML",                          // 默认值
             "type": "pickString",                       // 类型，只有3个选项"promptString", "pickString", "command"
-            "options": ["SFML", "Test"]                 // 选项
+            "options": ["SFML"]                 // 选项
         },
         {
             "id": "buildConfigVS2019",

@@ -4,7 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        // ## Windows
+        // ## VS2019
         {
             "name": "Launch (VS2019)",         // 配置名称，VSCode下面
             "program": "${workspaceFolder}\\..\\bin\\${input:buildProject}\\${input:buildProject}.exe",// 需要调试的程序路径
@@ -18,7 +18,7 @@
             "externalConsole": false            // 为true时使用单独的cmd窗口，跳出小黑框；设为false则是用vscode的内置终端，建议用内置终端
         },
 
-        // ## Mac
+        // ## XCode
         {
             "name": "Launch (XCode)",
             "program": "${workspaceFolder}/../bin/${input:buildProject}/${input:buildProject}",
@@ -41,7 +41,7 @@
             "description": "Select project to launch:", // UI上的描述
             "default": "SFML",                          // 默认值
             "type": "pickString",                       // 类型，只有3个选项"promptString", "pickString", "command"
-            "options": ["SFML", "Test"]                 // 选项
+            "options": ["SFML"]                 // 选项
         }
     ]
 }
