@@ -22,14 +22,17 @@ project "SFML"
 
     -- Window configuration
     filter "system:windows"
-        includedirs -- Specify the include file search path
+        -- Specify the include file search path
+        includedirs
         { 
             g_WorkspaceFolder .. "/%{prj.name}/Source/",
             "%{IncludeDirs.SFML}"
         }
+        -- Specify the library file search path
         libdirs { g_WorkspaceFolder .. "/../Third/SFML-2.5.1/lib/%{cfg.system}/%{cfg.architecture}" }
     
-        prebuildcommands
+        -- Copy dlls
+        prebuildcommands 
         {
             ("{COPY} \"%{wks.location}../Third/SFML-2.5.1/bin/%{cfg.system}/%{cfg.architecture}/*.dll\" \"%{cfg.buildtarget.directory}\""),
         }
