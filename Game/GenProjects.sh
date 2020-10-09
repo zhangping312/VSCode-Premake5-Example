@@ -1,3 +1,3 @@
-@echo off
-call premake5 xcode4
-pause
+#!/bin/bash
+set +v
+premake5 xcode4
