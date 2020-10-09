@@ -38,7 +38,7 @@
     "inputs": [
         {
             "id": "buildProject",                       // 标识
-            "description": "Select project to build:",  // UI上的描述
+            "description": "Select project to launch:", // UI上的描述
             "default": "SFML",                          // 默认值
             "type": "pickString",                       // 类型，只有3个选项"promptString", "pickString", "command"
             "options": ["SFML", "Test"]                 // 选项
