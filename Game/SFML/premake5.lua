@@ -23,4 +23,5 @@ project "SFML"
 
     -- Mac configuration
     filter "system:macosx"
+    systemversion "10.14"
         includedirs     { g_WorkspaceFolder .. "/%{prj.name}/Source/" }--Xcode: User Header Search Paths
